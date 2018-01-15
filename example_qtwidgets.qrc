@@ -2,4 +2,7 @@
     <qresource prefix="/images">
         <file alias="apple">images/apple.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file alias="bite">sounds/bite.wav</file>
+    </qresource>
 </RCC>

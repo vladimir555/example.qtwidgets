@@ -92,6 +92,7 @@ void MainWindow::on_buttonStart_clicked() {
         ui->layoutMenu->setGeometry(geometry);
 //        QThread::msleep(100);
     }
+//    QSound::play(":/sounds/bite");
 }
 
 
