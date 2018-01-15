@@ -1,8 +1,9 @@
 #include "main_window.h"
 #include "ui_main_window.h"
-#include "QDebug"
-#include "QStyledItemDelegate"
-#include "QPainter"
+#include <QDebug>
+#include <QStyledItemDelegate>
+#include <QPainter>
+#include <QThread>
 
 
 class BackgroundDelegate: public QStyledItemDelegate {
@@ -41,8 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    auto cell_width     = ui->buttonMainMenu->width();
-    auto cell_height    = ui->buttonMainMenu->width();
+    auto cell_width     = ui->buttonMenu->width();
+    auto cell_height    = ui->buttonMenu->width();
+    auto style_sheet    = "selection-background-color: rgba(0, 128, 0, 128);";
 
     auto table_widget_source_item  = new QTableWidgetItem();
     table_widget_source_item->setTextAlignment(Qt::AlignBottom | Qt::AlignRight);
@@ -59,12 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableInventory->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->tableInventory->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->tableInventory->setItemDelegate(new BackgroundDelegate(this));
-    ui->tableInventory->setStyleSheet("selection-background-color: rgba(0, 0, 128, 10);");
+    ui->tableInventory->setStyleSheet(style_sheet);
 
     ui->tableSource->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableSource->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableSource->setItemDelegate(new BackgroundDelegate(this));
-    ui->tableSource->setStyleSheet("selection-background-color: rgba(0, 0, 128, 10);");
+    ui->tableSource->setStyleSheet(style_sheet);
     ui->tableSource->setItem(0, 0, table_widget_source_item);
     ui->tableSource->setFixedSize(cell_width, cell_height);
 
@@ -80,9 +82,24 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_pushButtonStart_clicked() {
+
+void MainWindow::on_buttonStart_clicked() {
     auto geometry = ui->layoutMenu->geometry();
     m_menu_height = geometry.bottom();
-    geometry.setBottom(0);
-    ui->layoutMenu->setGeometry(geometry);
+    for (auto i = m_menu_height; i > 0; i--) {
+        geometry.setBottom(i);
+        ui->layoutMenu->setGeometry(geometry);
+//        QThread::msleep(100);
+    }
+}
+
+
+void MainWindow::on_buttonMenu_clicked() {
+    auto geometry = ui->layoutMenu->geometry();
+    for (auto i = 0; i < m_menu_height; i++) {
+        geometry.setBottom(i);
+        ui->layoutMenu->setGeometry(geometry);
+        ui->layoutMenu->update();
+//        QThread::msleep(10);
+    }
 }

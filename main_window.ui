@@ -175,7 +175,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="buttonMainMenu">
+         <widget class="QPushButton" name="buttonMenu">
           <property name="text">
            <string>Главное меню</string>
           </property>
@@ -194,14 +194,14 @@
        <enum>QLayout::SetMinimumSize</enum>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButtonStart">
+       <widget class="QPushButton" name="buttonStart">
         <property name="text">
          <string>Новая игра</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonExit">
+       <widget class="QPushButton" name="buttonExit">
         <property name="text">
          <string>Выход</string>
         </property>

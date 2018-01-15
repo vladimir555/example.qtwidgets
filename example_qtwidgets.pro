@@ -25,10 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        main_window.cpp
+        main_window.cpp \
+    db.cpp \
+    inventory.cpp \
+    item.cpp
 
 HEADERS += \
-        main_window.h
+        main_window.h \
+    db.h \
+    inventory.h \
+    item.h
 
 FORMS += \
         main_window.ui

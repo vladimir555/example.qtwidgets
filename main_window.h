@@ -1,14 +1,20 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+
 #include <QMainWindow>
 
-namespace Ui {
-class MainWindow;
-}
 
-class MainWindow : public QMainWindow
-{
+namespace Ui {
+
+
+class MainWindow;
+
+
+} // Ui
+
+
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -16,11 +22,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButtonStart_clicked();
+    void on_buttonStart_clicked();
+    void on_buttonMenu_clicked();
 
 private:
     Ui::MainWindow *ui;
     int m_menu_height;
 };
+
 
 #endif // MAIN_WINDOW_H
