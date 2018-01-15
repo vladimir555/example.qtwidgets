@@ -16,6 +16,9 @@ public:
     Item(Type const &type);
     ~Item() = default;
 
+    QString getIconPath() const;
+    Type getType() const;
+
 private:
     QString m_icon_path;
     Type    m_type;
