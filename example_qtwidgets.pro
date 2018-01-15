@@ -38,3 +38,6 @@ HEADERS += \
 
 FORMS += \
         main_window.ui
+
+RESOURCES += \
+    example_qtwidgets.qrc

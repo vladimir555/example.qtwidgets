@@ -45,12 +45,13 @@ MainWindow::MainWindow(QWidget *parent) :
     auto cell_width     = ui->buttonMenu->width();
     auto cell_height    = ui->buttonMenu->width();
     auto style_sheet    = "selection-background-color: rgba(0, 128, 0, 128);";
+//    auto icon_path      = "/Users/volodja/workspace/qtcreator/example.qtwidgets/apple.png";
+    auto icon_path      = ":/images/apple";
 
     auto table_widget_source_item  = new QTableWidgetItem();
     table_widget_source_item->setTextAlignment(Qt::AlignBottom | Qt::AlignRight);
 
-    auto pixmap = QPixmap("/Users/volodja/workspace/qtcreator/example.qtwidgets/apple.png").scaled
-            (cell_width, cell_height);
+    auto pixmap = QPixmap(icon_path).scaled(cell_width, cell_height);
 
     table_widget_source_item->setBackground(pixmap);
     table_widget_source_item->setText("1");
