@@ -28,13 +28,15 @@ SOURCES += \
         main_window.cpp \
     db.cpp \
     inventory.cpp \
-    item.cpp
+    item.cpp \
+    exception.cpp
 
 HEADERS += \
         main_window.h \
     db.h \
     inventory.h \
-    item.h
+    item.h \
+    exception.h
 
 FORMS += \
         main_window.ui

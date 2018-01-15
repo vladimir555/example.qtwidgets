@@ -21,3 +21,8 @@ QString Item::getIconPath() const {
 Item::Type Item::getType() const {
     return m_type;
 }
+
+
+bool Item::operator== (Item const &item) const {
+    return m_type == item.m_type;
+}

@@ -17,7 +17,9 @@ public:
     ~Item() = default;
 
     QString getIconPath() const;
-    Type getType() const;
+    Type    getType() const;
+
+    bool    operator== (Item const &item) const;
 
 private:
     QString m_icon_path;
