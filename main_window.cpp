@@ -48,7 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
     auto cell_width     = ui->buttonMenu->width();
     auto cell_height    = ui->buttonMenu->width();
     auto style_sheet    = "selection-background-color: rgba(0, 128, 0, 128);";
-//    auto icon_path      = "/Users/volodja/workspace/qtcreator/example.qtwidgets/apple.png";
     auto icon_path      = ":/images/apple";
 
     auto table_widget_source_item  = new QTableWidgetItem();
@@ -80,15 +79,32 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMaximumWidth(this->width());
     this->setMinimumWidth(this->width());
 
-//    Engine::instance().config.inventory_size =
-//        QSize(ui->tableInventory->columnCount(), ui->tableInventory->rowCount());
+    Engine::instance().config.inventory_size =
+        QSize(ui->tableInventory->columnCount(), ui->tableInventory->rowCount());
 
-//    Engine::instance().initialize();
+    Engine::instance().initialize();
+
+    for (int h = 0; h < Engine::instance().config.inventory_size.height(); h++) {
+        for (int w = 0; w < Engine::instance().config.inventory_size.width(); w++) {
+            TCell cell = Engine::instance().inventory()->get(QSize(w, h));
+            if (cell.item && cell.count > 0) {
+                auto pixmap = QPixmap(cell.item->getIconPath()).scaled(cell_width, cell_height);
+
+                auto table_widget_item = new QTableWidgetItem();
+
+                table_widget_item->setBackground(pixmap);
+                table_widget_item->setText(QString::number(cell.count));
+                table_widget_item->setFlags(table_widget_source_item->flags() ^ Qt::ItemIsEditable);
+
+                ui->tableInventory->setItem(w, h, table_widget_item);
+            }
+        }
+    }
 }
 
 
 MainWindow::~MainWindow() {
-//    Engine::instance().finalize();
+    Engine::instance().finalize();
     delete ui;
 }
 
@@ -113,4 +129,8 @@ void MainWindow::on_buttonMenu_clicked() {
         ui->layoutMenu->update();
 //        QThread::msleep(10);
     }
+}
+
+void MainWindow::on_buttonExit_clicked() {
+    QApplication::quit();
 }

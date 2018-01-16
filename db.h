@@ -4,14 +4,18 @@
 
 #include <QSize>
 #include <QSqlDatabase>
+#include <QSharedPointer>
 
 #include "cell.h"
 
 #include "utility/pattern/initializable.h"
+#include "utility/smart_ptr.h"
 
 
 class DB: public utility::pattern::IInitializable {
 public:
+    DEFINE_SMART_PTR(DB)
+    DEFINE_CREATE(DB)
     DB() = default;
     virtual ~DB() = default;
 
@@ -21,8 +25,10 @@ public:
     void updateCell(QSize const &pos, TCell const &cell);
     TCell getCell(QSize const &pos);
 
+    // todo: full table loading method
+
 private:
-    QSqlDatabase m_database;
+    QSharedPointer<QSqlDatabase> m_database;
 
 };
 

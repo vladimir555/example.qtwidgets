@@ -11,16 +11,20 @@
 #include "db.h"
 
 #include "utility/pattern/initializable.h"
+#include "utility/smart_ptr.h"
 
 
 class Inventory: public utility::pattern::IInitializable {
 public:
-    Inventory(QSize const &size, DB &db);
+    DEFINE_SMART_PTR(Inventory)
+    DEFINE_CREATE(Inventory)
+    Inventory(QSize const &size, DB::TSharedPtr const &db);
     virtual ~Inventory() = default;
 
     void  add           (QSize const &pos, Item const &item);
     void  decreaseItem  (QSize const &pos);
     int   moveCell      (QSize const &from, QSize const &to);
+    TCell get           (QSize const &pos);
 
     virtual void initialize() override;
     virtual void finalize() override;
@@ -32,7 +36,7 @@ private:
     QSize                       m_size;
     QVector<QVector<TCell> >    m_items;
 
-    DB &m_db;
+    DB::TSharedPtr m_db;
 };
 
 

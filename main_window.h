@@ -25,6 +25,8 @@ private slots:
     void on_buttonStart_clicked();
     void on_buttonMenu_clicked();
 
+    void on_buttonExit_clicked();
+
 private:
     Ui::MainWindow *ui;
     int m_menu_height;

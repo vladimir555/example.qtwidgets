@@ -1,33 +1,46 @@
 #include "engine.h"
 
+#include "exception.h"
 
-//namespace  {
+#include <QMessageBox>
 
-
-//const QSize INVENTORY_SIZE(3, 3);
-
-
-//} // unnamed
-
-
-Engine::Engine()
-:
-    m_inventory(config.inventory_size, m_db)
-{}
+#include "utility/assert.h"
 
 
 void Engine::initialize() {
-    m_db.initialize();
-    m_inventory.initialize();
+    try {
+        if (!m_db) {
+            m_db = DB::create();
+            m_db->initialize();
+        }
+
+        if (!m_inventory) {
+            m_inventory = Inventory::create(config.inventory_size, m_db);
+            m_inventory->initialize();
+        }
+    } catch (Exception const &e) {
+        QMessageBox mbox;
+        mbox.critical(0, "Fatal error", e.what());
+        throw;
+    }
 }
 
 
 void Engine::finalize() {
-    m_inventory.finalize();
-    m_db.finalize();
+
+    try {
+        if (m_inventory)
+            m_inventory->finalize();
+        if (m_db)
+            m_db->finalize();
+
+    } catch (Exception const &e) {
+        QMessageBox mbox;
+        mbox.critical(0, "Fatal error", e.what());
+    }
 }
 
 
-Inventory &Engine::inventory() {
-    return m_inventory;
+Inventory::TSharedPtr Engine::inventory() {
+    return utility::assertExists(m_inventory, "inventory not initialized");
 }

@@ -1,14 +1,17 @@
 #include "inventory.h"
 #include "exception.h"
+#include "utility/assert.h"
+#include <QDebug>
 
 
-Inventory::Inventory(QSize const &size, DB &db)
+Inventory::Inventory(QSize const &size, DB::TSharedPtr const &db)
 :
-    m_items(size.height()),
-    m_db(db)
+    m_size  (size),
+    m_items (size.height()),
+    m_db    (utility::assertExists(db, "db is null"))
 {
-    for (auto row: m_items)
-        row.resize(size.width());
+    for (auto h = 0; h < size.height(); h++)
+        m_items[h].resize(size.width());
 }
 
 
@@ -49,13 +52,22 @@ int Inventory::moveCell(QSize const &from, QSize const &to) {
 }
 
 
-void Inventory::initialize() {
+TCell Inventory::get(QSize const &pos) {
+    return cell(pos);
+}
 
+
+void Inventory::initialize() {
+    for (auto h = 0; h < m_size.height(); h++) {
+        for (auto w = 0; w < m_size.width(); w++) {
+            auto pos  = QSize(w, h);
+            cell(pos) = m_db->getCell(pos);
+        }
+    }
 }
 
 
 void Inventory::finalize() {
-
 }
 
 
@@ -69,5 +81,5 @@ void Inventory::assertPos(QSize const &pos) const {
 
 
 TCell &Inventory::cell(QSize const &pos) {
-    return m_items[pos.height() - 1][pos.width()];
+    return m_items[pos.height()][pos.width()];
 }
