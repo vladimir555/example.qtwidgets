@@ -2,9 +2,10 @@
 #include "exception.h"
 
 
-Inventory::Inventory(QSize const &size)
+Inventory::Inventory(QSize const &size, DB &db)
 :
-    m_items(size.height())
+    m_items(size.height()),
+    m_db(db)
 {
     for (auto row: m_items)
         row.resize(size.width());
@@ -14,7 +15,7 @@ Inventory::Inventory(QSize const &size)
 void Inventory::add(QSize const &pos, Item const &item) {
     assertPos(pos);
     if (cell(pos).count == 0)
-        cell(pos).item = QSharedPointer<Item>::create(item);
+        cell(pos).item = Item::create(item);
     else {
         if (cell(pos).item && *cell(pos).item == item)
             cell(pos).count++;
@@ -48,6 +49,16 @@ int Inventory::moveCell(QSize const &from, QSize const &to) {
 }
 
 
+void Inventory::initialize() {
+
+}
+
+
+void Inventory::finalize() {
+
+}
+
+
 void Inventory::assertPos(QSize const &pos) const {
     if (pos.width()  < 0 || pos.width()  > m_size.width() ||
         pos.height() < 0 || pos.height() > m_size.height())
@@ -57,6 +68,6 @@ void Inventory::assertPos(QSize const &pos) const {
 }
 
 
-Inventory::TCell &Inventory::cell(QSize const &pos) {
+TCell &Inventory::cell(QSize const &pos) {
     return m_items[pos.height() - 1][pos.width()];
 }

@@ -4,26 +4,30 @@
 
 #include <QString>
 
+#include "utility/smart_ptr.h"
+
 
 class Item {
 public:
+    DEFINE_SMART_PTR(Item)
+    DEFINE_CREATE(Item)
     Item();
 
-    enum Type {
+    enum TType {
         TYPE_APPLE
     };
 
-    Item(Type const &type);
+    Item(TType const &type, QString const &resource);
     ~Item() = default;
 
-    QString getIconPath() const;
-    Type    getType() const;
+    QString  getIconPath() const;
+    TType    getType() const;
 
-    bool    operator== (Item const &item) const;
+    bool     operator== (Item const &item) const;
 
 private:
-    QString m_icon_path;
-    Type    m_type;
+    QString  m_icon_path;
+    TType    m_type;
 };
 
 

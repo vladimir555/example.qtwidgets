@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,14 +29,22 @@ SOURCES += \
     db.cpp \
     inventory.cpp \
     item.cpp \
-    exception.cpp
+    exception.cpp \
+    engine.cpp
 
 HEADERS += \
         main_window.h \
     db.h \
     inventory.h \
     item.h \
-    exception.h
+    exception.h \
+    utility/pattern/initializable.h \
+    utility/pattern/singleton.h \
+    utility/smart_ptr.h \
+    utility/pattern/non_copyable.h \
+    utility/pattern/non_movable.h \
+    engine.h \
+    cell.h
 
 FORMS += \
         main_window.ui

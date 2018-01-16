@@ -5,4 +5,7 @@
     <qresource prefix="/sounds">
         <file alias="bite">sounds/bite.wav</file>
     </qresource>
+    <qresource prefix="/db">
+        <file alias="inventory">example_qwidgets.sqlite</file>
+    </qresource>
 </RCC>

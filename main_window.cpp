@@ -1,5 +1,8 @@
 #include "main_window.h"
 #include "ui_main_window.h"
+
+#include "engine.h"
+
 #include <QDebug>
 #include <QStyledItemDelegate>
 #include <QPainter>
@@ -76,10 +79,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMinimumHeight(this->height());
     this->setMaximumWidth(this->width());
     this->setMinimumWidth(this->width());
+
+//    Engine::instance().config.inventory_size =
+//        QSize(ui->tableInventory->columnCount(), ui->tableInventory->rowCount());
+
+//    Engine::instance().initialize();
 }
 
 
 MainWindow::~MainWindow() {
+//    Engine::instance().finalize();
     delete ui;
 }
 
