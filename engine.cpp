@@ -8,6 +8,7 @@
 
 
 void Engine::initialize() {
+    QMutexLocker l(&m_mutex);
     try {
         if (!m_db) {
             m_db = DB::create();
@@ -27,7 +28,7 @@ void Engine::initialize() {
 
 
 void Engine::finalize() {
-
+    QMutexLocker l(&m_mutex);
     try {
         if (m_inventory)
             m_inventory->finalize();
@@ -38,6 +39,18 @@ void Engine::finalize() {
         QMessageBox mbox;
         mbox.critical(0, "Fatal error", e.what());
     }
+}
+
+
+int Engine::moveCell(QSize const &from, QSize const &to) {
+    QMutexLocker l(&m_mutex);
+    return inventory()->moveCell(from, to);
+}
+
+
+TCell Engine::get(QSize const &pos) {
+    QMutexLocker l(&m_mutex);
+    return inventory()->get(pos);
 }
 
 

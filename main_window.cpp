@@ -88,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for (int h = 0; h < Engine::instance().config.inventory_size.height(); h++) {
         for (int w = 0; w < Engine::instance().config.inventory_size.width(); w++) {
-            TCell cell = Engine::instance().inventory()->get(QSize(w, h));
+            TCell cell = Engine::instance().get(QSize(w, h));
             if (cell.item && cell.count > 0) {
                 auto pixmap = QPixmap(cell.item->getIconPath()).scaled(cell_width, cell_height);
 
@@ -102,9 +102,6 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         }
     }
-
-//    qDebug() << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
-//                QApplication::applicationDisplayName() + ".sqlite";
 }
 
 

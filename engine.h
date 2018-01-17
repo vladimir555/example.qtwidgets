@@ -3,6 +3,7 @@
 
 
 #include <QApplication>
+#include <QMutex>
 
 #include "utility/pattern/singleton.h"
 #include "utility/pattern/initializable.h"
@@ -13,6 +14,7 @@
 
 class Engine:
     public utility::pattern::IInitializable,
+    public IInventory,
     public utility::pattern::Singleton<Engine>
 {
 public:
@@ -23,14 +25,19 @@ public:
         QSize inventory_size;
     } config;
 
-    virtual void initialize() override;
-    virtual void finalize() override;
+    void initialize() override;
+    void finalize() override;
 
-    Inventory::TSharedPtr inventory();
+    int   moveCell(QSize const &from, QSize const &to) override;
+    TCell get     (QSize const &pos) override;
+
 
 private:
     friend class utility::pattern::Singleton<Engine>;
 
+    Inventory::TSharedPtr   inventory();
+
+    QMutex                  m_mutex;
     DB::TSharedPtr          m_db;
     Inventory::TSharedPtr   m_inventory;
 };

@@ -20,9 +20,6 @@ namespace {
 
 
 QString const DB_TYPE               = "QSQLITE";
-//QString const DB_NAME               = "/Users/volodja/workspace/qtcreator/example.qtwidgets/example_qwidgets.sqlite";
-//QString const DB_NAME             = "/home/volodja/workspace/example.qtwidgets/example_qwidgets.sqlite";
-//QString const DB_NAME             = ":/db/inventory";
 QString const TABLE_ITEMS           = "items";
 QString const TABLE_ITEM_TYPES      = "item_types";
 QString const FIELD_ID_TYPE         = TABLE_ITEMS + ".id_type";

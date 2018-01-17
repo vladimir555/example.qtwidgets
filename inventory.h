@@ -14,7 +14,19 @@
 #include "utility/smart_ptr.h"
 
 
-class Inventory: public utility::pattern::IInitializable {
+class IInventory {
+public:
+    DEFINE_INTERFACE(IInventory)
+
+    virtual int   moveCell(QSize const &from, QSize const &to) = 0;
+    virtual TCell get     (QSize const &pos) = 0;
+};
+
+
+class Inventory:
+    public utility::pattern::IInitializable,
+    public IInventory
+{
 public:
     DEFINE_SMART_PTR(Inventory)
     DEFINE_CREATE(Inventory)
@@ -23,8 +35,8 @@ public:
 
     void  add           (QSize const &pos, Item const &item);
     void  decreaseItem  (QSize const &pos);
-    int   moveCell      (QSize const &from, QSize const &to);
-    TCell get           (QSize const &pos);
+    int   moveCell      (QSize const &from, QSize const &to) override;
+    TCell get           (QSize const &pos) override;
 
     virtual void initialize() override;
     virtual void finalize() override;
