@@ -7,6 +7,8 @@
 #include <QStyledItemDelegate>
 #include <QPainter>
 #include <QThread>
+#include <QFileInfo>
+#include <QDesktopServices>
 
 
 class BackgroundDelegate: public QStyledItemDelegate {
@@ -91,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 auto pixmap = QPixmap(cell.item->getIconPath()).scaled(cell_width, cell_height);
 
                 auto table_widget_item = new QTableWidgetItem();
-
+                table_widget_item->setTextAlignment(Qt::AlignBottom | Qt::AlignRight);
                 table_widget_item->setBackground(pixmap);
                 table_widget_item->setText(QString::number(cell.count));
                 table_widget_item->setFlags(table_widget_source_item->flags() ^ Qt::ItemIsEditable);
@@ -100,6 +102,9 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         }
     }
+
+//    qDebug() << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+//                QApplication::applicationDisplayName() + ".sqlite";
 }
 
 
